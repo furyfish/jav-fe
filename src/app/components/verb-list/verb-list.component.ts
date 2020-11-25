@@ -8,22 +8,22 @@ import {VerbService} from 'src/app/services/verb.service';
 })
 export class VerbListComponent implements OnInit {
 
-  verbs: any;
-  currentTutorial = null;
-  currentIndex = -1;
-  title = '';
+  verb: any;
+  currentStreak = 0;
+  maxStreak = 0;
 
-  constructor(private verbService: VerbService) { }
+  constructor(private verbService: VerbService) {
+  }
 
   ngOnInit() {
     this.retrieveOneVerb();
   }
 
   retrieveOneVerb() {
-    this.verbService.getOneRandom()
+    this.verbService.getRandom()
       .subscribe(
         data => {
-          this.verbs = data;
+          this.verb = data;
           console.log(data);
         },
         error => {
@@ -33,8 +33,8 @@ export class VerbListComponent implements OnInit {
 
   refreshList() {
     this.retrieveOneVerb();
-    this.currentTutorial = null;
-    this.currentIndex = -1;
+    this.currentStreak = 0;
+    this.maxStreak = 0;
   }
 
 }

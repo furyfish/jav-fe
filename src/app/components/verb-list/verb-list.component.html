@@ -1,16 +1,31 @@
-<div class="list row">
-  <div class="col-md-6">
-    <h4>Verbs List</h4>
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let verb of verbs; let i = index"
-        [class.active]="i == currentIndex"
-      >
-        {{ verb.plain }}
-      </li>
-    </ul>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Current streak {{currentStreak}}</mat-card-title>
+    <mat-card-subtitle>Max streak {{maxStreak}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <div id="jisho" class="column">{{ verb.jisho }}</div>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <mat-icon mat-list-icon>adjust</mat-icon>
+      <span class="column">{{ verb.form1 }}</span>
+      <mat-icon mat-list-icon>adjust</mat-icon>
+      <span class="column">{{ verb.form2 }}</span>
+      <mat-icon mat-list-icon>adjust</mat-icon>
+      <span class="column">{{ verb.form3 }}</span>
+    </mat-list>
+  </mat-card-content>
 
-  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Input</mat-label>
+    <input matInput>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
 
-</div>
+  <mat-card-actions>
+    <button mat-fab color="primary" aria-label="Result" (click)="refreshList()">
+      <mat-icon>all_inclusive</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
