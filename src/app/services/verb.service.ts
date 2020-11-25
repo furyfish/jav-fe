@@ -11,6 +11,10 @@ export class VerbService {
   constructor(private http: HttpClient) {
   }
 
+  getRandom() {
+    return this.http.get(`${baseUrl}/random`);
+  }
+
   getOneRandom() {
     return this.http.get(`${baseUrl}/one`);
   }
