@@ -4,9 +4,7 @@
     <mat-card-subtitle>Max streak {{maxStreak}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-divider></mat-divider>
-    <div id="jisho" class="column">{{ verb.jisho }}</div>
-    <mat-divider></mat-divider>
+    <wc-furigana value="{{ verb.jisho }}"></wc-furigana>
     <mat-list>
       <mat-icon mat-list-icon>adjust</mat-icon>
       <span class="column">{{ verb.form1 }}</span>
@@ -18,13 +16,13 @@
   </mat-card-content>
 
   <mat-form-field appearance="outline">
-    <mat-label>Input</mat-label>
-    <input matInput>
+    <mat-label>Input result</mat-label>
+    <input #result matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 
   <mat-card-actions>
-    <button mat-fab color="primary" aria-label="Result" (click)="refreshList()">
+    <button mat-fab color="primary" aria-label="Result" (click)="compareResult(result.value)">
       <mat-icon>all_inclusive</mat-icon>
     </button>
   </mat-card-actions>

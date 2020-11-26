@@ -1,6 +1,8 @@
 mat-card {
-  width: 30%;
-  height: 70%;
+  min-width: 200px;
+  max-width: 500px;
+  min-height: 400px;
+  max-height: 900px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -23,9 +25,10 @@ span.column {
   vertical-align: super;
 }
 
-div#jisho {
-  padding: 50px;
-  font-family: SansSerif;
+wc-furigana {
   font-size: xxx-large;
 }
 
+mat-list {
+  margin-top: 20px;
+}
