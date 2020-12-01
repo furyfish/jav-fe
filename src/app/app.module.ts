@@ -56,8 +56,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'verb-list', pathMatch: 'full'},
-  {path: 'verb-list', component: VerbListComponent},
+  {path: '', component: VerbListComponent},
   {path: 'verb/:id', component: VerbDetailsComponent},
   {path: 'verb-add', component: VerbAddComponent}
 ];
