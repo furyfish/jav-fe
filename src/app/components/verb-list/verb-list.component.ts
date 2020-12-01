@@ -26,6 +26,8 @@ export class VerbListComponent implements OnInit {
     this.verbService.getRandom()
       .subscribe(
         data => {
+          console.log('data');
+          console.log(data);
           this.verb = data;
           for (let i = 0; i < this.verb.kanji.length; i++) {
             if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
