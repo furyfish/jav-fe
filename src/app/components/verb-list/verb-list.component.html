@@ -7,11 +7,11 @@
     <wc-furigana value="{{ verb.jisho }}"></wc-furigana>
     <mat-list>
       <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ verb.form1 }}</span>
+      <span class="column">{{ verb.form.name_vn }}</span>
       <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ verb.form2 }}</span>
+      <span class="column">{{ verb.tense.name_vn }}</span>
       <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ verb.form3 }}</span>
+      <span class="column">{{ verb.type.name_vn }}</span>
     </mat-list>
   </mat-card-content>
 
