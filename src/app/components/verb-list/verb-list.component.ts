@@ -14,6 +14,7 @@ export class VerbListComponent implements OnInit {
   currentStreak = 0;
   maxStreak = 0;
   kana = '';
+  pointClass = 'hidden-point';
 
   constructor(private verbService: VerbService) {
   }
@@ -26,8 +27,6 @@ export class VerbListComponent implements OnInit {
     this.verbService.getRandom()
       .subscribe(
         data => {
-          console.log('data');
-          console.log(data);
           this.verb = data;
           for (let i = 0; i < this.verb.kanji.length; i++) {
             if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
@@ -46,18 +45,26 @@ export class VerbListComponent implements OnInit {
     this.kana = '';
   }
 
-  compareResult(btnResult) {
-    if (btnResult === this.verb.result1 || btnResult === this.verb.result2) {
+  compareResult(result) {
+    if (result === this.verb.result1 || result === this.verb.result2) {
       console.log('GOOD');
       this.currentStreak += 1;
       if (this.currentStreak > this.maxStreak) {
         this.maxStreak += 1;
       }
+      this.showPoint();
     } else {
       console.log('BAD');
       this.currentStreak = 0;
     }
     this.refreshList();
+  }
+
+  showPoint() {
+    this.pointClass = 'showup-point';
+    setTimeout(() => {
+      this.pointClass = 'hidden-point';
+    }, 1001);
   }
 
   convertRomajiToKana(romaji) {

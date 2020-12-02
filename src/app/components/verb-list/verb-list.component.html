@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>Current streak {{currentStreak}}</mat-card-title>
+    <div [ngClass]="pointClass">+1</div>
     <mat-card-subtitle>Max streak {{maxStreak}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -16,8 +17,8 @@
   </mat-card-content>
 
   <mat-form-field appearance="outline">
-    <mat-label>Input result</mat-label>
-    <input #result matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)">
+    <mat-label>Kanji or hiragana</mat-label>
+    <input #result name="result" matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 

@@ -32,3 +32,43 @@ wc-furigana {
 mat-list {
   margin-top: 20px;
 }
+
+.hidden-point {
+  overflow-y: hidden;
+  max-height: 500px;
+
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  display: none;
+}
+
+.showup-point {
+  color: forestgreen;
+  font-weight: revert;
+  -moz-animation: cssAnimation 0s ease-in 1s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 1s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 1s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 1s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@-webkit-keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
