@@ -1,18 +1,35 @@
 <mat-card>
+
   <mat-card-header>
     <mat-card-title>Current streak {{currentStreak}}</mat-card-title>
     <div [ngClass]="pointClass">+1</div>
     <mat-card-subtitle>Max streak {{maxStreak}}</mat-card-subtitle>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Option" class="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="'/settings'">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+    </mat-menu>
   </mat-card-header>
+
   <mat-card-content>
     <wc-furigana value="{{ verb.jisho }}"></wc-furigana>
     <mat-list>
       <mat-icon mat-list-icon>adjust</mat-icon>
       <span class="column">{{ verb.form.name_vn }}</span>
-      <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ verb.tense.name_vn }}</span>
-      <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ verb.type.name_vn }}</span>
+      <span *ngIf="checkTense()">
+        <mat-icon mat-list-icon>adjust</mat-icon>
+        <span class="column">{{ verb.tense.name_vn }}</span>
+      </span>
+      <span *ngIf="checkTense()">
+        <mat-icon mat-list-icon>adjust</mat-icon>
+        <span class="column">{{ verb.type.name_vn }}</span>
+      </span>
     </mat-list>
   </mat-card-content>
 
@@ -27,4 +44,5 @@
       <mat-icon>all_inclusive</mat-icon>
     </button>
   </mat-card-actions>
+
 </mat-card>

@@ -3,13 +3,12 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {VerbListComponent} from './components/verb-list/verb-list.component';
-import {VerbDetailsComponent} from './components/verb-details/verb-details.component';
-import {VerbAddComponent} from './components/verb-add/verb-add.component';
 
 import {RouterModule, Routes} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
 
 import {A11yModule} from '@angular/cdk/a11y';
 import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -54,22 +53,22 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {SettingsComponent} from './components/settings/settings.component';
 
 const routes: Routes = [
   {path: '', component: VerbListComponent},
-  {path: 'verb/:id', component: VerbDetailsComponent},
-  {path: 'verb-add', component: VerbAddComponent}
+  {path: 'settings', component: SettingsComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     VerbListComponent,
-    VerbDetailsComponent,
-    VerbAddComponent
+    SettingsComponent
   ],
   imports: [
     [RouterModule.forRoot(routes)],
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -118,6 +117,7 @@ const routes: Routes = [
     OverlayModule,
     PortalModule,
     ScrollingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

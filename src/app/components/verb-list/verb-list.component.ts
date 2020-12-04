@@ -77,4 +77,12 @@ export class VerbListComponent implements OnInit {
     return str.substr(0, index) + value + str.substr(index);
   }
 
+  checkTense() {
+    return this.verb !== '' && this.verb.tense !== '';
+  }
+
+  checkType() {
+    return this.verb !== '' && this.verb.type !== '';
+  }
+
 }

@@ -72,3 +72,9 @@ mat-list {
     visibility: hidden;
   }
 }
+
+.menu {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}

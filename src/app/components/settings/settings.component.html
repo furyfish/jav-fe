@@ -1,0 +1,39 @@
+<mat-card>
+
+  <mat-card-content>
+    <h2 class="example-h2">Settings</h2>
+
+    <section class="example-section">
+      <label class="example-margin">Language:</label>
+      <mat-radio-group [(ngModel)]="language">
+        <mat-radio-button class="example-margin" value="vi">
+          Tiếng Việt
+        </mat-radio-button>
+        <mat-radio-button class="example-margin" value="en">
+          English
+        </mat-radio-button>
+        <mat-radio-button class="example-margin" value="jp">
+          日本語
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <form class="example-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+
+      <section class="example-section2 example-margin">
+        <label class="example-margin ">Select form to practice:</label>
+        <mat-slide-toggle class="example-margin" formControlName="dictionary">Từ điển
+        </mat-slide-toggle>
+        <mat-slide-toggle class="example-margin" formControlName="polite">Lịch sự
+        </mat-slide-toggle>
+        <mat-slide-toggle class="example-margin" formControlName="tform">Thể て
+        </mat-slide-toggle>
+      </section>
+
+      <section class="example-section3">
+        <button mat-raised-button type="submit" class="example-margin">Save Settings</button>
+      </section>
+    </form>
+  </mat-card-content>
+
+</mat-card>

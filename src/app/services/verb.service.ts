@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
-const baseUrl = 'http://35.247.142.242:8081/api/verb';
+const baseUrl = 'http://localhost:8081/api/verb';
 
 @Injectable({
   providedIn: 'root'
@@ -12,38 +12,13 @@ export class VerbService {
   }
 
   getRandom() {
-    return this.http.get(`${baseUrl}/random`);
+    const dictionary = localStorage.getItem('dictionary');
+    const polite = localStorage.getItem('polite');
+    const tform = localStorage.getItem('tform');
+
+    const params = new HttpParams().set('dictionary', dictionary).set('polite', polite).set('tform', tform);
+
+    return this.http.get(`${baseUrl}/random`, {params: params});
   }
 
-  getOneRandom() {
-    return this.http.get(`${baseUrl}/one`);
-  }
-
-  getAll() {
-    return this.http.get(baseUrl);
-  }
-
-  get(id) {
-    return this.http.get(`${baseUrl}/${id}`);
-  }
-
-  create(data) {
-    return this.http.post(baseUrl, data);
-  }
-
-  update(id, data) {
-    return this.http.put(`${baseUrl}/${id}`, data);
-  }
-
-  delete(id) {
-    return this.http.delete(`${baseUrl}/${id}`);
-  }
-
-  deleteAll() {
-    return this.http.delete(baseUrl);
-  }
-
-  findByTitle(title) {
-    return this.http.get(`${baseUrl}?title=${title}`);
-  }
 }
