@@ -11,9 +11,9 @@ export class SettingsComponent implements OnInit {
 
   formGroup: FormGroup;
   language = 'vi';
-  dictionary = new FormControl(true);
-  polite = new FormControl(true);
-  tform = new FormControl(true);
+  dictionary = new FormControl(localStorage.getItem('dictionary') === 'true');
+  polite = new FormControl(localStorage.getItem('polite') === 'true');
+  tform = new FormControl(localStorage.getItem('tform') === 'true');
 
   constructor(formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
