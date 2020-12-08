@@ -1,38 +1,38 @@
 <mat-card>
 
   <mat-card-content>
-    <h2 class="example-h2">Settings</h2>
+    <h2 class="setting-h2">Settings</h2>
 
-    <section class="example-section">
-      <label class="example-margin">Language:</label>
+    <section class="setting-section">
+      <label class="setting-margin">Language:</label>
       <mat-radio-group [(ngModel)]="language">
-        <mat-radio-button class="example-margin" value="vi">
+        <mat-radio-button class="setting-margin" value="vi">
           Tiếng Việt
         </mat-radio-button>
-        <mat-radio-button class="example-margin" value="en">
+        <mat-radio-button class="setting-margin" value="en">
           English
         </mat-radio-button>
-        <mat-radio-button class="example-margin" value="jp">
+        <mat-radio-button class="setting-margin" value="jp">
           日本語
         </mat-radio-button>
       </mat-radio-group>
     </section>
 
-    <form class="example-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+    <form class="setting-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
 
-      <section class="example-section2 example-margin">
-        <label class="example-margin ">Select form to practice:</label>
-        <mat-slide-toggle class="example-margin" formControlName="dictionary">Từ điển
+      <section class="setting-section2 setting-margin">
+        <label class="setting-margin ">Select form to practice:</label>
+        <mat-slide-toggle class="setting-margin" formControlName="dictionary">Từ điển
         </mat-slide-toggle>
-        <mat-slide-toggle class="example-margin" formControlName="polite">Lịch sự
+        <mat-slide-toggle class="setting-margin" formControlName="polite">Lịch sự
         </mat-slide-toggle>
-        <mat-slide-toggle class="example-margin" formControlName="tform">Thể て
+        <mat-slide-toggle class="setting-margin" formControlName="tform">Thể て
         </mat-slide-toggle>
       </section>
 
-      <section class="example-section3">
-        <button mat-raised-button type="button" class="example-margin" [routerLink]="'/'">Back</button>
-        <button mat-raised-button type="submit" class="example-margin">Save Settings</button>
+      <section class="setting-section3">
+        <button mat-raised-button type="button" class="setting-margin" [routerLink]="'/'">Back</button>
+        <button mat-raised-button type="submit" class="setting-margin">Save Settings</button>
       </section>
     </form>
   </mat-card-content>
