@@ -78,11 +78,11 @@ export class VerbListComponent implements OnInit {
   }
 
   checkTense() {
-    return this.verb !== '' && this.verb.tense !== '';
+    return this.verb !== '' && this.verb.tense !== undefined && this.verb.tense !== '';
   }
 
   checkType() {
-    return this.verb !== '' && this.verb.type !== '';
+    return this.verb !== '' && this.verb.type !== undefined && this.verb.type !== '';
   }
 
 }

@@ -26,7 +26,7 @@
         <mat-icon mat-list-icon>adjust</mat-icon>
         <span class="column">{{ verb.tense.name_vn }}</span>
       </span>
-      <span *ngIf="checkTense()">
+      <span *ngIf="checkType()">
         <mat-icon mat-list-icon>adjust</mat-icon>
         <span class="column">{{ verb.type.name_vn }}</span>
       </span>
@@ -35,7 +35,7 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Kanji or hiragana</mat-label>
-    <input #result name="result" matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)">
+    <input #result name="result" matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)" (keyup.enter)="compareResult(result.value)">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 

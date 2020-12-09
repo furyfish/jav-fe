@@ -12,11 +12,12 @@ export class VerbService {
   }
 
   getRandom() {
-    const dictionary = localStorage.getItem('dictionary');
-    const polite = localStorage.getItem('polite');
-    const tform = localStorage.getItem('tform');
+    const masuForm = localStorage.getItem('masuForm');
+    const naiForm = localStorage.getItem('naiForm');
+    const taForm = localStorage.getItem('taForm');
+    const teForm = localStorage.getItem('teForm');
 
-    const params = new HttpParams().set('dictionary', dictionary).set('polite', polite).set('tform', tform);
+    const params = new HttpParams().set('masuForm', masuForm).set('naiForm', naiForm).set('taForm', taForm).set('teForm', teForm);
 
     return this.http.get(`${baseUrl}/random`, {params: params});
   }
