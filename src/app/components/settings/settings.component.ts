@@ -15,13 +15,17 @@ export class SettingsComponent implements OnInit {
   naiForm = new FormControl(localStorage.getItem('naiForm') === '1');
   taForm = new FormControl(localStorage.getItem('taForm') === '1');
   teForm = new FormControl(localStorage.getItem('teForm') === '1');
+  potentialForm = new FormControl(localStorage.getItem('potentialForm') === '1');
+  passiveForm = new FormControl(localStorage.getItem('passiveForm') === '1');
 
   constructor(formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
       masuForm: this.masuForm,
       naiForm: this.naiForm,
       taForm: this.taForm,
-      teForm: this.teForm
+      teForm: this.teForm,
+      potentialForm: this.potentialForm,
+      passiveForm: this.passiveForm
     });
   }
 
@@ -33,6 +37,8 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('naiForm', this.getSlideValue(this.formGroup.get('naiForm').value));
     localStorage.setItem('taForm', this.getSlideValue(this.formGroup.get('taForm').value));
     localStorage.setItem('teForm', this.getSlideValue(this.formGroup.get('teForm').value));
+    localStorage.setItem('potentialForm', this.getSlideValue(this.formGroup.get('potentialForm').value));
+    localStorage.setItem('passiveForm', this.getSlideValue(this.formGroup.get('passiveForm').value));
   }
 
   getSlideValue(value) {

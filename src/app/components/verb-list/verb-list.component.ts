@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {VerbService} from 'src/app/services/verb.service';
 import * as wanakana from 'wanakana';
 import {applyPolyfills, defineCustomElements} from '@paulbarre/wc-furigana/loader';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-verb-list',
@@ -16,7 +17,7 @@ export class VerbListComponent implements OnInit {
   kana = '';
   pointClass = 'hidden-point';
 
-  constructor(private verbService: VerbService) {
+  constructor(private verbService: VerbService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -47,15 +48,19 @@ export class VerbListComponent implements OnInit {
 
   compareResult(result) {
     if (result === this.verb.result1 || result === this.verb.result2) {
-      console.log('GOOD');
       this.currentStreak += 1;
       if (this.currentStreak > this.maxStreak) {
         this.maxStreak += 1;
       }
       this.showPoint();
     } else {
-      console.log('BAD');
       this.currentStreak = 0;
+      this.snackBar.open(result, this.verb.result2, {
+        duration: 500000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'fail-dialog'
+      });
     }
     this.refreshList();
   }
