@@ -34,7 +34,6 @@ export class VerbListComponent implements OnInit {
       .subscribe(
         data => {
           this.verb = data;
-          console.log(this.verb);
           const furigana = [];
           let lastFuriganaIdx = 0;
           for (let i = 0; i < this.verb.furigana.length; i++) {
@@ -53,7 +52,6 @@ export class VerbListComponent implements OnInit {
               idxJisho += 3;
             }
             idxJisho++;
-            console.log(this.verb.jisho);
           }
           console.log(this.verb);
         },
@@ -74,6 +72,9 @@ export class VerbListComponent implements OnInit {
       this.currentStreak = String(Number(this.currentStreak) + 1);
       if (this.currentStreak > this.maxStreak) {
         this.maxStreak = String(Number(this.maxStreak) + 1);
+      }
+      if (Number(this.maxStreak) > Number(localStorage.getItem('maxStreak'))) {
+        localStorage.setItem('maxStreak', this.maxStreak);
       }
       this.showPoint();
       this.refreshList();

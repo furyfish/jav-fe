@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
 const baseUrl = 'http://localhost:8081/api/verb';
-
 // const baseUrl = 'http://35.247.142.242:8081/api/verb';
 
 @Injectable({
@@ -21,7 +20,8 @@ export class VerbService {
       .set('taForm', localStorage.getItem('taForm'))
       .set('teForm', localStorage.getItem('teForm'))
       .set('potentialForm', localStorage.getItem('potentialForm'))
-      .set('passiveForm', localStorage.getItem('passiveForm'));
+      .set('passiveForm', localStorage.getItem('passiveForm'))
+      .set('conditionalForm', localStorage.getItem('conditionalForm'));
 
     return this.http.get(`${baseUrl}/random`, {params: params});
   }
@@ -34,6 +34,7 @@ export class VerbService {
       localStorage.setItem('teForm', '1');
       localStorage.setItem('potentialForm', '1');
       localStorage.setItem('passiveForm', '1');
+      localStorage.setItem('conditionalForm', '1');
     }
   }
 
