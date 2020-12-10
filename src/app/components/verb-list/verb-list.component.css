@@ -78,3 +78,30 @@ mat-list {
   right: 10px;
   top: 5px;
 }
+
+.meaning {
+  margin-top: 20px;
+}
+
+.group {
+  margin-bottom: 10px;
+}
+
+.bad {
+  color: orangered;
+}
+
+.good {
+  color: forestgreen;
+}
+
+#correct {
+  text-align: center;
+}
+
+.correct {
+  text-align: left;
+  padding: 10px;
+  display: inline-block;
+  border: 1px solid orangered;
+}

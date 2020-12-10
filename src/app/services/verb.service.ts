@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
-// const baseUrl = 'http://localhost:8081/api/verb';
-const baseUrl = 'http://35.247.142.242:8081/api/verb';
+const baseUrl = 'http://localhost:8081/api/verb';
+
+// const baseUrl = 'http://35.247.142.242:8081/api/verb';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +14,27 @@ export class VerbService {
   }
 
   getRandom() {
-    const masuForm = localStorage.getItem('masuForm');
-    const naiForm = localStorage.getItem('naiForm');
-    const taForm = localStorage.getItem('taForm');
-    const teForm = localStorage.getItem('teForm');
-    const potentialForm = localStorage.getItem('potentialForm');
-    const passiveForm = localStorage.getItem('passiveForm');
-
+    this.initForm();
     const params = new HttpParams()
-      .set('masuForm', masuForm)
-      .set('naiForm', naiForm)
-      .set('taForm', taForm)
-      .set('teForm', teForm)
-      .set('potentialForm', potentialForm)
-      .set('passiveForm', passiveForm);
+      .set('masuForm', localStorage.getItem('masuForm'))
+      .set('naiForm', localStorage.getItem('naiForm'))
+      .set('taForm', localStorage.getItem('taForm'))
+      .set('teForm', localStorage.getItem('teForm'))
+      .set('potentialForm', localStorage.getItem('potentialForm'))
+      .set('passiveForm', localStorage.getItem('passiveForm'));
 
     return this.http.get(`${baseUrl}/random`, {params: params});
+  }
+
+  initForm() {
+    if (localStorage.getItem('masuForm') == null) {
+      localStorage.setItem('masuForm', '1');
+      localStorage.setItem('naiForm', '1');
+      localStorage.setItem('taForm', '1');
+      localStorage.setItem('teForm', '1');
+      localStorage.setItem('potentialForm', '1');
+      localStorage.setItem('passiveForm', '1');
+    }
   }
 
 }

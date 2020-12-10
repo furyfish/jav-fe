@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {VerbService} from 'src/app/services/verb.service';
 import * as wanakana from 'wanakana';
-import {applyPolyfills, defineCustomElements} from '@paulbarre/wc-furigana/loader';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-verb-list',
@@ -12,15 +10,22 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class VerbListComponent implements OnInit {
 
   verb: any;
-  currentStreak = 0;
-  maxStreak = 0;
+  currentStreak = '0';
+  maxStreak = '0';
   kana = '';
   pointClass = 'hidden-point';
+  input = '';
+  disabledResult = false;
 
-  constructor(private verbService: VerbService, private snackBar: MatSnackBar) {
+  constructor(private verbService: VerbService) {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('maxStreak') == null) {
+      localStorage.setItem('maxStreak', '0');
+    }
+    this.maxStreak = localStorage.getItem('maxStreak');
+    this.hideCorrect();
     this.retrieveOneVerb();
   }
 
@@ -29,10 +34,26 @@ export class VerbListComponent implements OnInit {
       .subscribe(
         data => {
           this.verb = data;
+          console.log(this.verb);
+          const furigana = [];
+          let lastFuriganaIdx = 0;
+          for (let i = 0; i < this.verb.furigana.length; i++) {
+            if (this.verb.furigana.charAt(i) === ']') {
+              furigana.push(this.verb.furigana.slice(lastFuriganaIdx, i + 1));
+              lastFuriganaIdx = i + 1;
+            }
+          }
+          let countKanji = 0;
+          let idxJisho = 0;
+          this.verb.jisho = this.verb.kanji;
           for (let i = 0; i < this.verb.kanji.length; i++) {
             if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
-              this.verb.jisho = this.insert(this.verb.kanji, i + 1, '[' + this.verb.furigana + ']');
+              this.verb.jisho = this.insert(this.verb.jisho, idxJisho + 1, furigana[countKanji]);
+              countKanji += 1;
+              idxJisho += 3;
             }
+            idxJisho++;
+            console.log(this.verb.jisho);
           }
           console.log(this.verb);
         },
@@ -42,27 +63,37 @@ export class VerbListComponent implements OnInit {
   }
 
   refreshList() {
+    this.hideCorrect();
     this.retrieveOneVerb();
     this.kana = '';
   }
 
   compareResult(result) {
+    this.kana = '';
     if (result === this.verb.result1 || result === this.verb.result2) {
-      this.currentStreak += 1;
+      this.currentStreak = String(Number(this.currentStreak) + 1);
       if (this.currentStreak > this.maxStreak) {
-        this.maxStreak += 1;
+        this.maxStreak = String(Number(this.maxStreak) + 1);
       }
       this.showPoint();
+      this.refreshList();
     } else {
-      this.currentStreak = 0;
-      this.snackBar.open(result, this.verb.result2, {
-        duration: 500000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'fail-dialog'
-      });
+      this.showCorrect();
+      this.input = result;
+      this.currentStreak = '0';
     }
-    this.refreshList();
+  }
+
+  showCorrect() {
+    const correct = document.getElementById('correct');
+    correct.style.display = 'block';
+    this.disabledResult = true;
+  }
+
+  hideCorrect() {
+    const correct = document.getElementById('correct');
+    correct.style.display = 'none';
+    this.disabledResult = false;
   }
 
   showPoint() {

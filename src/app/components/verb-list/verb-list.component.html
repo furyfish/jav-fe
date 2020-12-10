@@ -19,6 +19,8 @@
 
   <mat-card-content>
     <wc-furigana value="{{ verb.jisho }}"></wc-furigana>
+    <div class="meaning">{{ verb.vietnamese }}</div>
+
     <mat-list>
       <mat-icon mat-list-icon>adjust</mat-icon>
       <span class="column">{{ verb.form.name_vn }}</span>
@@ -35,14 +37,31 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Kanji or hiragana</mat-label>
-    <input #result name="result" matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)" (keyup.enter)="compareResult(result.value)">
+    <input #result name="result" matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)"
+           (keyup.enter)="compareResult(result.value)" [disabled]="disabledResult">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 
-  <mat-card-actions>
-    <button mat-fab color="primary" aria-label="Result" (click)="compareResult(result.value)">
-      <mat-icon>all_inclusive</mat-icon>
-    </button>
-  </mat-card-actions>
+  <div id="correct">
+    <div class="correct">
+      <div class="group">
+        Động từ nhóm <span>{{ verb.group == 4 ? 1 : verb.group }}</span>
+      </div>
+      <div>
+        <mat-icon mat-list-icon class="bad">block</mat-icon>
+        <span class="column">{{ input }}</span>
+      </div>
+      <div>
+        <mat-icon mat-list-icon class="good">check_circle_outline</mat-icon>
+        <span class="column">{{ verb.result2 }}</span>
+      </div>
+    </div>
+
+    <mat-card-actions>
+      <button mat-fab color="primary" aria-label="Result" (click)="refreshList()">
+        <mat-icon>all_inclusive</mat-icon>
+      </button>
+    </mat-card-actions>
+  </div>
 
 </mat-card>
