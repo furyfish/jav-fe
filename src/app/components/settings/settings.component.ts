@@ -10,6 +10,7 @@ export class SettingsComponent implements OnInit {
 
   formGroup: FormGroup;
   language = 'vi';
+  timer = new FormControl(localStorage.getItem('timer') === '1');
   masuForm = new FormControl(localStorage.getItem('masuForm') === '1');
   naiForm = new FormControl(localStorage.getItem('naiForm') === '1');
   taForm = new FormControl(localStorage.getItem('taForm') === '1');
@@ -20,6 +21,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
+      timer: this.timer,
       masuForm: this.masuForm,
       naiForm: this.naiForm,
       taForm: this.taForm,
@@ -34,6 +36,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onFormSubmit() {
+    localStorage.setItem('timer', this.getSlideValue(this.formGroup.get('timer').value));
     localStorage.setItem('masuForm', this.getSlideValue(this.formGroup.get('masuForm').value));
     localStorage.setItem('naiForm', this.getSlideValue(this.formGroup.get('naiForm').value));
     localStorage.setItem('taForm', this.getSlideValue(this.formGroup.get('taForm').value));

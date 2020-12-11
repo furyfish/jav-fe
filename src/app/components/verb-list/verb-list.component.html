@@ -35,10 +35,12 @@
     </mat-list>
   </mat-card-content>
 
-  <mat-form-field appearance="outline">
+  <div id='progressbar'></div>
+
+  <mat-form-field id="input-field" appearance="outline">
     <mat-label>Kanji or hiragana</mat-label>
-    <input #result name="result" matInput [(ngModel)]="kana" (keyup)="convertRomajiToKana(result.value)"
-           (keyup.enter)="compareResult(result.value)" [disabled]="disabledResult">
+    <input matInput #inputResult name="input" [(ngModel)]="kana" (keyup)="convertRomajiToKana(inputResult.value)"
+           (keyup.enter)="compareInputResult(inputResult.value)" [disabled]="disabledInputResult">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 
@@ -49,7 +51,7 @@
       </div>
       <div>
         <mat-icon mat-list-icon class="bad">block</mat-icon>
-        <span class="column">{{ input }}</span>
+        <span class="column">{{ lastInput }}</span>
       </div>
       <div>
         <mat-icon mat-list-icon class="good">check_circle_outline</mat-icon>

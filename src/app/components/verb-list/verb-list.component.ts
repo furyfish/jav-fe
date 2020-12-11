@@ -14,19 +14,16 @@ export class VerbListComponent implements OnInit {
   maxStreak = '0';
   kana = '';
   pointClass = 'hidden-point';
-  input = '';
-  disabledResult = false;
+  lastInput = '';
+  disabledInputResult = false;
+  useProgressbar = localStorage.getItem('timer') === '1';
 
   constructor(private verbService: VerbService) {
   }
 
   ngOnInit() {
-    if (localStorage.getItem('maxStreak') == null) {
-      localStorage.setItem('maxStreak', '0');
-    }
-    this.maxStreak = localStorage.getItem('maxStreak');
-    this.hideCorrect();
-    this.retrieveOneVerb();
+    this.verb = {form: {}, tense: {}, type: {}};
+    this.refreshList();
   }
 
   retrieveOneVerb() {
@@ -62,13 +59,23 @@ export class VerbListComponent implements OnInit {
 
   refreshList() {
     this.hideCorrect();
+    this.showInputResult();
+    this.showProgress();
     this.retrieveOneVerb();
+    if (localStorage.getItem('maxStreak') == null) {
+      localStorage.setItem('maxStreak', '0');
+    }
+    this.maxStreak = localStorage.getItem('maxStreak');
+    if (this.useProgressbar) {
+      this.createProgressbar('progressbar', '10s', () => {
+        this.compareInputResult(this.kana);
+      });
+    }
     this.kana = '';
   }
 
-  compareResult(result) {
-    this.kana = '';
-    if (result === this.verb.result1 || result === this.verb.result2) {
+  compareInputResult(inputResult) {
+    if (inputResult === this.verb.result1 || inputResult === this.verb.result2) {
       this.currentStreak = String(Number(this.currentStreak) + 1);
       if (this.currentStreak > this.maxStreak) {
         this.maxStreak = String(Number(this.maxStreak) + 1);
@@ -77,10 +84,17 @@ export class VerbListComponent implements OnInit {
         localStorage.setItem('maxStreak', this.maxStreak);
       }
       this.showPoint();
-      this.refreshList();
+      if (this.useProgressbar) {
+        this.removeProgressbar('progressbar');
+        setTimeout(() => this.refreshList(), 1000);
+      } else {
+        this.refreshList();
+      }
     } else {
       this.showCorrect();
-      this.input = result;
+      this.hideInputResult();
+      this.hideProgress();
+      this.lastInput = inputResult;
       this.currentStreak = '0';
     }
   }
@@ -88,13 +102,33 @@ export class VerbListComponent implements OnInit {
   showCorrect() {
     const correct = document.getElementById('correct');
     correct.style.display = 'block';
-    this.disabledResult = true;
   }
 
   hideCorrect() {
     const correct = document.getElementById('correct');
     correct.style.display = 'none';
-    this.disabledResult = false;
+  }
+
+  showInputResult() {
+    this.disabledInputResult = false;
+    const correct = document.getElementById('input-field');
+    correct.style.display = 'grid';
+  }
+
+  hideInputResult() {
+    this.disabledInputResult = true;
+    const correct = document.getElementById('input-field');
+    correct.style.display = 'none';
+  }
+
+  showProgress() {
+    const progress = document.getElementById('progressbar');
+    progress.style.display = 'block';
+  }
+
+  hideProgress() {
+    const progress = document.getElementById('progressbar');
+    progress.style.display = 'none';
   }
 
   showPoint() {
@@ -120,6 +154,40 @@ export class VerbListComponent implements OnInit {
 
   checkType() {
     return this.verb !== '' && this.verb.type !== undefined && this.verb.type !== '';
+  }
+
+  createProgressbar(id, duration, callback) {
+    const progressbar = document.getElementById(id);
+    progressbar.classList.remove('progressbar');
+    progressbar.classList.add('progressbar');
+
+    let progressbarinner = document.getElementById('inner');
+    if (progressbarinner == null) {
+      // We create the div that changes width to show progress
+      progressbarinner = document.createElement('div');
+      progressbarinner.id = 'inner';
+      progressbarinner.classList.add('inner');
+
+      // Now we set the animation parameters
+      progressbarinner.style.animationDuration = duration;
+
+      // Eventually couple a callback
+      if (typeof (callback) === 'function') {
+        progressbarinner.addEventListener('animationend', callback);
+      }
+
+      // Append the progressbar to the main progressbardiv
+      progressbar.appendChild(progressbarinner);
+    }
+
+    // When everything is set up we start the animation
+    progressbarinner.style.animationPlayState = 'running';
+  }
+
+  removeProgressbar(id) {
+    const progressbar = document.getElementById(id);
+    progressbar.classList.remove('progressbar');
+    progressbar.innerHTML = '';
   }
 
 }

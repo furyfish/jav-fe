@@ -1,10 +1,10 @@
 <mat-card>
 
   <mat-card-content>
-    <h2 class="setting-h2">Settings</h2>
+    <h2 class="setting-h2">Cài đặt</h2>
 
     <section class="setting-section">
-      <label class="setting-margin">Language:</label>
+      <label class="setting-margin">Ngôn ngữ:</label>
       <mat-radio-group [(ngModel)]="language">
         <mat-radio-button class="setting-margin" value="vi">
           Tiếng Việt
@@ -21,7 +21,13 @@
     <form class="setting-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
 
       <section class="setting-section2 setting-margin">
-        <label class="setting-margin ">Select form to practice:</label>
+        <label class="setting-margin ">Tùy chọn nâng cao:</label>
+        <mat-slide-toggle class="setting-margin" formControlName="timer">Hẹn giờ
+        </mat-slide-toggle>
+      </section>
+
+      <section class="setting-section2 setting-margin">
+        <label class="setting-margin ">Tùy chọn thể của động từ:</label>
         <mat-slide-toggle class="setting-margin" formControlName="masuForm">Thể masu
         </mat-slide-toggle>
         <mat-slide-toggle class="setting-margin" formControlName="naiForm">Thể nai
