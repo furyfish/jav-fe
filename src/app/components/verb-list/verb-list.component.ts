@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {VerbService} from 'src/app/services/verb.service';
 import * as wanakana from 'wanakana';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-verb-list',
@@ -15,15 +16,28 @@ export class VerbListComponent implements OnInit {
   kana = '';
   pointClass = 'hidden-point';
   lastInput = '';
-  disabledInputResult = false;
   useProgressbar = localStorage.getItem('timer') === '1';
+  @ViewChild('inputResult') inputResult: MatInput;
+  isReviewing = false;
 
   constructor(private verbService: VerbService) {
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.key === 'Enter' && this.isReviewing) {
+      this.refreshList();
+      this.inputResult.focus();
+    }
   }
 
   ngOnInit() {
     this.verb = {form: {}, tense: {}, type: {}};
     this.refreshList();
+  }
+
+  ngAfterViewInit() {
+    this.inputResult.focus();
   }
 
   retrieveOneVerb() {
@@ -58,20 +72,19 @@ export class VerbListComponent implements OnInit {
   }
 
   refreshList() {
+    setTimeout(() => this.isReviewing = false, 500);
     this.hideCorrect();
     this.showInputResult();
     this.showProgress();
     this.retrieveOneVerb();
-    if (localStorage.getItem('maxStreak') == null) {
-      localStorage.setItem('maxStreak', '0');
-    }
-    this.maxStreak = localStorage.getItem('maxStreak');
+    this.maxStreak = this.verbService.loadMaxStreak();
     if (this.useProgressbar) {
       this.createProgressbar('progressbar', '10s', () => {
         this.compareInputResult(this.kana);
       });
     }
     this.kana = '';
+    this.inputResult.focus();
   }
 
   compareInputResult(inputResult) {
@@ -91,6 +104,7 @@ export class VerbListComponent implements OnInit {
         this.refreshList();
       }
     } else {
+      setTimeout(() => this.isReviewing = true, 500);
       this.showCorrect();
       this.hideInputResult();
       this.hideProgress();
@@ -110,13 +124,11 @@ export class VerbListComponent implements OnInit {
   }
 
   showInputResult() {
-    this.disabledInputResult = false;
     const correct = document.getElementById('input-field');
     correct.style.display = 'grid';
   }
 
   hideInputResult() {
-    this.disabledInputResult = true;
     const correct = document.getElementById('input-field');
     correct.style.display = 'none';
   }
@@ -189,5 +201,4 @@ export class VerbListComponent implements OnInit {
     progressbar.classList.remove('progressbar');
     progressbar.innerHTML = '';
   }
-
 }

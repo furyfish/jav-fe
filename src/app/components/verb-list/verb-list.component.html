@@ -1,3 +1,4 @@
+<body>
 <mat-card>
 
   <mat-card-header>
@@ -39,8 +40,9 @@
 
   <mat-form-field id="input-field" appearance="outline">
     <mat-label>Kanji or hiragana</mat-label>
-    <input matInput #inputResult name="input" [(ngModel)]="kana" (keyup)="convertRomajiToKana(inputResult.value)"
-           (keyup.enter)="compareInputResult(inputResult.value)" [disabled]="disabledInputResult">
+    <input matInput id="inputResult" #inputResult="matInput" name="input" [(ngModel)]="kana"
+           (keyup)="convertRomajiToKana(inputResult.value)"
+           (keyup.enter)="compareInputResult(inputResult.value)">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 
@@ -67,3 +69,4 @@
   </div>
 
 </mat-card>
+</body>
