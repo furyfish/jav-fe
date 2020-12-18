@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "jav-fe": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "vi-VN": "src/locale/messages.vi.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",

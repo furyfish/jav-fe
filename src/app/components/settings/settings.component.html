@@ -1,52 +1,51 @@
 <mat-card>
 
   <mat-card-content>
-    <h2 class="setting-h2">Cài đặt</h2>
-
-    <section class="setting-section">
-      <label class="setting-margin">Ngôn ngữ:</label>
-      <mat-radio-group [(ngModel)]="language">
-        <mat-radio-button class="setting-margin" value="vi">
-          Tiếng Việt
-        </mat-radio-button>
-        <mat-radio-button class="setting-margin" value="en">
-          English
-        </mat-radio-button>
-        <mat-radio-button class="setting-margin" value="jp">
-          日本語
-        </mat-radio-button>
-      </mat-radio-group>
-    </section>
+    <h2 class="setting-h2" i18n>Cài đặt</h2>
 
     <form class="setting-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+      <section class="setting-section">
+        <label class="setting-margin" i18n>Ngôn ngữ:</label>
+        <mat-radio-group formControlName="language">
+          <mat-radio-button class="setting-margin" value="vi-VN" i18n>
+            Tiếng Việt
+          </mat-radio-button>
+          <mat-radio-button class="setting-margin" value="en-US" i18n>
+            English
+          </mat-radio-button>
+          <mat-radio-button class="setting-margin" value="jp-JP" i18n>
+            日本語
+          </mat-radio-button>
+        </mat-radio-group>
+      </section>
 
       <section class="setting-section2 setting-margin">
-        <label class="setting-margin ">Tùy chọn nâng cao:</label>
-        <mat-slide-toggle class="setting-margin" formControlName="timer">Hẹn giờ
+        <label class="setting-margin" i18n>Tùy chọn nâng cao:</label>
+        <mat-slide-toggle class="setting-margin" formControlName="timer" i18n>Hẹn giờ
         </mat-slide-toggle>
       </section>
 
       <section class="setting-section2 setting-margin">
-        <label class="setting-margin ">Tùy chọn thể của động từ:</label>
-        <mat-slide-toggle class="setting-margin" formControlName="masuForm">Thể masu
+        <label class="setting-margin" i18n>Tùy chọn thể của động từ:</label>
+        <mat-slide-toggle class="setting-margin" formControlName="masuForm" i18n>Thể masu
         </mat-slide-toggle>
-        <mat-slide-toggle class="setting-margin" formControlName="naiForm">Thể nai
+        <mat-slide-toggle class="setting-margin" formControlName="naiForm" i18n>Thể nai
         </mat-slide-toggle>
-        <mat-slide-toggle class="setting-margin" formControlName="taForm">Thể ta
+        <mat-slide-toggle class="setting-margin" formControlName="taForm" i18n>Thể ta
         </mat-slide-toggle>
-        <mat-slide-toggle class="setting-margin" formControlName="teForm">Thể te
+        <mat-slide-toggle class="setting-margin" formControlName="teForm" i18n>Thể te
         </mat-slide-toggle>
-        <mat-slide-toggle class="setting-margin" formControlName="potentialForm">Thể khả năng
+        <mat-slide-toggle class="setting-margin" formControlName="potentialForm" i18n>Thể khả năng
         </mat-slide-toggle>
-        <mat-slide-toggle class="setting-margin" formControlName="passiveForm">Thể bị động
+        <mat-slide-toggle class="setting-margin" formControlName="passiveForm" i18n>Thể bị động
         </mat-slide-toggle>
-        <mat-slide-toggle class="setting-margin" formControlName="conditionalForm">Thể điều kiện
+        <mat-slide-toggle class="setting-margin" formControlName="conditionalForm" i18n>Thể điều kiện
         </mat-slide-toggle>
       </section>
 
       <section class="setting-section3">
-        <button mat-raised-button type="button" class="setting-margin" [routerLink]="'/'">Back</button>
-        <button mat-raised-button type="submit" class="setting-margin">Save Settings</button>
+        <button mat-raised-button type="button" class="setting-margin" [routerLink]="'/'" i18n>Quay lại</button>
+        <button mat-raised-button type="submit" class="setting-margin" i18n>Lưu cài đặt</button>
       </section>
     </form>
   </mat-card-content>

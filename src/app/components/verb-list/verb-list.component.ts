@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {LOCALE_ID, Component, HostListener, OnInit, ViewChild, Inject} from '@angular/core';
 import {VerbService} from 'src/app/services/verb.service';
 import * as wanakana from 'wanakana';
 import {MatInput} from '@angular/material/input';
@@ -27,17 +27,13 @@ export class VerbListComponent implements OnInit {
   keyEvent(event: KeyboardEvent) {
     if (event.key === 'Enter' && this.isReviewing) {
       this.refreshList();
-      this.inputResult.focus();
+      this.focusInputResult();
     }
   }
 
   ngOnInit() {
     this.verb = {form: {}, tense: {}, type: {}};
     this.refreshList();
-  }
-
-  ngAfterViewInit() {
-    this.inputResult.focus();
   }
 
   retrieveOneVerb() {
@@ -84,11 +80,11 @@ export class VerbListComponent implements OnInit {
       });
     }
     this.kana = '';
-    this.inputResult.focus();
+    this.focusInputResult();
   }
 
-  compareInputResult(inputResult) {
-    if (inputResult === this.verb.result1 || inputResult === this.verb.result2) {
+  compareInputResult(inputValue) {
+    if (inputValue === this.verb.result1 || inputValue === this.verb.result2) {
       this.currentStreak = String(Number(this.currentStreak) + 1);
       if (this.currentStreak > this.maxStreak) {
         this.maxStreak = String(Number(this.maxStreak) + 1);
@@ -108,8 +104,14 @@ export class VerbListComponent implements OnInit {
       this.showCorrect();
       this.hideInputResult();
       this.hideProgress();
-      this.lastInput = inputResult;
+      this.lastInput = inputValue;
       this.currentStreak = '0';
+    }
+  }
+
+  focusInputResult() {
+    if (this.inputResult != null) {
+      this.inputResult.focus();
     }
   }
 

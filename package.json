@@ -2,6 +2,7 @@
   "name": "jav-fe",
   "version": "0.0.0",
   "scripts": {
+    "i18n": "ng xi18n --format=xlf2 --ivy --output-path src/locale",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -31,6 +32,7 @@
     "@angular-devkit/build-angular": "~0.1100.1",
     "@angular/cli": "~11.0.1",
     "@angular/compiler-cli": "~11.0.0",
+    "@angular/localize": "^11.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",

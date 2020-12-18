@@ -2,9 +2,9 @@
 <mat-card>
 
   <mat-card-header>
-    <mat-card-title>Current streak {{currentStreak}}</mat-card-title>
+    <mat-card-title i18n>Điểm hiện tại {{currentStreak}}</mat-card-title>
     <div [ngClass]="pointClass">+1</div>
-    <mat-card-subtitle>Max streak {{maxStreak}}</mat-card-subtitle>
+    <mat-card-subtitle i18n>Điểm cao nhất {{maxStreak}}</mat-card-subtitle>
 
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Option" class="menu">
       <mat-icon>more_vert</mat-icon>
@@ -13,7 +13,7 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item [routerLink]="'/settings'">
         <mat-icon>settings</mat-icon>
-        <span>Settings</span>
+        <span>Cài đặt</span>
       </button>
     </mat-menu>
   </mat-card-header>
@@ -39,16 +39,16 @@
   <div id='progressbar'></div>
 
   <mat-form-field id="input-field" appearance="outline">
-    <mat-label>Kanji or hiragana</mat-label>
+    <mat-label i18n>Kanji hoặc hiragana</mat-label>
     <input matInput id="inputResult" #inputResult="matInput" name="input" [(ngModel)]="kana"
            (keyup)="convertRomajiToKana(inputResult.value)"
-           (keyup.enter)="compareInputResult(inputResult.value)">
+           (keyup.enter)="compareInputResult(inputResult.value)" autofocus>
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 
   <div id="correct">
     <div class="correct">
-      <div class="group">
+      <div class="group" i18n>
         Động từ nhóm <span>{{ verb.group == 4 ? 1 : verb.group }}</span>
       </div>
       <div>

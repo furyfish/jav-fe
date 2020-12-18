@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US">
+  <file id="ngi18n" original="ng.template">
+    <unit id="7709245139141524039">
+      <notes>
+        <note category="location">src/app/components/verb-list/verb-list.component.html:5</note>
+      </notes>
+      <segment>
+        <source>Điểm hiện tại </source>
+        <target>Curent streak </target>
+      </segment>
+    </unit>
+    <unit id="3414813072368192646">
+      <notes>
+        <note category="location">src/app/components/verb-list/verb-list.component.html:7</note>
+      </notes>
+      <segment>
+        <source>Điểm cao nhất <ph id="0" equiv="INTERPOLATION" disp=" nhất {{maxSt"/></source>
+      </segment>
+    </unit>
+    <unit id="1310687703551684664">
+      <notes>
+        <note category="location">src/app/components/verb-list/verb-list.component.html:42</note>
+      </notes>
+      <segment>
+        <source>Kanji hoặc hiragana</source>
+      </segment>
+    </unit>
+    <unit id="5036521949348181390">
+      <notes>
+        <note category="location">src/app/components/verb-list/verb-list.component.html:52</note>
+      </notes>
+      <segment>
+        <source> Động từ nhóm <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="    &lt;d" dispEnd="ừ nhóm "><ph id="1" equiv="INTERPOLATION" disp="iv class=&quot;group&quot; i18n&gt;
+        Động t"/></pc></source>
+      </segment>
+    </unit>
+    <unit id="5753665135520551291">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:4</note>
+      </notes>
+      <segment>
+        <source>Cài đặttttt</source>
+        <target>Settings</target>
+      </segment>
+    </unit>
+    <unit id="1633990948662197789">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:7</note>
+      </notes>
+      <segment>
+        <source>Ngôn ngữ:</source>
+      </segment>
+    </unit>
+    <unit id="3696936447531263565">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:10,11</note>
+      </notes>
+      <segment>
+        <source> Tiếng Việt </source>
+      </segment>
+    </unit>
+    <unit id="5187467810881029399">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:13,14</note>
+      </notes>
+      <segment>
+        <source> English </source>
+      </segment>
+    </unit>
+    <unit id="5309818685579920393">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:16,17</note>
+      </notes>
+      <segment>
+        <source> 日本語 </source>
+      </segment>
+    </unit>
+    <unit id="4792167775484614649">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:24</note>
+      </notes>
+      <segment>
+        <source>Tùy chọn nâng cao:</source>
+      </segment>
+    </unit>
+    <unit id="7336377492550683335">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:25,26</note>
+      </notes>
+      <segment>
+        <source>Hẹn giờ </source>
+      </segment>
+    </unit>
+    <unit id="8735305532455867253">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:30</note>
+      </notes>
+      <segment>
+        <source>Tùy chọn thể của động từ:</source>
+      </segment>
+    </unit>
+    <unit id="4626898842429765847">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:31,32</note>
+      </notes>
+      <segment>
+        <source>Thể masu </source>
+      </segment>
+    </unit>
+    <unit id="5878811794509471881">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:33,34</note>
+      </notes>
+      <segment>
+        <source>Thể nai </source>
+      </segment>
+    </unit>
+    <unit id="1652986380928043234">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:35,36</note>
+      </notes>
+      <segment>
+        <source>Thể ta </source>
+      </segment>
+    </unit>
+    <unit id="5333704557575194195">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:37,38</note>
+      </notes>
+      <segment>
+        <source>Thể te </source>
+      </segment>
+    </unit>
+    <unit id="8207971036966948927">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:39,40</note>
+      </notes>
+      <segment>
+        <source>Thể khả năng </source>
+      </segment>
+    </unit>
+    <unit id="5750816164460831272">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:41,42</note>
+      </notes>
+      <segment>
+        <source>Thể bị động </source>
+      </segment>
+    </unit>
+    <unit id="6689937722444395707">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:43,44</note>
+      </notes>
+      <segment>
+        <source>Thể điều kiện </source>
+      </segment>
+    </unit>
+    <unit id="8953796157352507660">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:48</note>
+      </notes>
+      <segment>
+        <source>Quay lại</source>
+      </segment>
+    </unit>
+    <unit id="2710106613751152112">
+      <notes>
+        <note category="location">src/app/components/settings/settings.component.html:49</note>
+      </notes>
+      <segment>
+        <source>Lưu cài đặt</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

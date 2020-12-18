@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {VerbListComponent} from './components/verb-list/verb-list.component';
@@ -119,7 +119,9 @@ const routes: Routes = [
     ScrollingModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {provide: LOCALE_ID, useValue: localStorage.getItem('language')}
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

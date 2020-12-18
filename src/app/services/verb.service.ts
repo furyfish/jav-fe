@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
-// const baseUrl = 'http://localhost:8081/api/verb';
-const baseUrl = 'http://35.247.142.242:8081/api/verb';
+const baseUrl = 'http://localhost:8081/api/verb';
+// const baseUrl = 'http://35.247.142.242:8081/api/verb';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {LOCALE_ID, Component, OnInit, Inject} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 export class SettingsComponent implements OnInit {
 
   formGroup: FormGroup;
-  language = 'vi';
+  language = localStorage.getItem('language');
   timer = new FormControl(localStorage.getItem('timer') === '1');
   masuForm = new FormControl(localStorage.getItem('masuForm') === '1');
   naiForm = new FormControl(localStorage.getItem('naiForm') === '1');
@@ -21,6 +21,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
+      language: this.language,
       timer: this.timer,
       masuForm: this.masuForm,
       naiForm: this.naiForm,
@@ -33,9 +34,11 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('language'));
   }
 
   onFormSubmit() {
+    localStorage.setItem('language', this.formGroup.get('language').value);
     localStorage.setItem('timer', this.getSlideValue(this.formGroup.get('timer').value));
     localStorage.setItem('masuForm', this.getSlideValue(this.formGroup.get('masuForm').value));
     localStorage.setItem('naiForm', this.getSlideValue(this.formGroup.get('naiForm').value));
