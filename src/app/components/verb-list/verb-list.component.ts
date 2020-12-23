@@ -1,5 +1,5 @@
 import {LOCALE_ID, Component, HostListener, OnInit, ViewChild, Inject} from '@angular/core';
-import {VerbService} from 'src/app/services/verb.service';
+import {VerbService} from '../../services/verb.service';
 import * as wanakana from 'wanakana';
 import {MatInput} from '@angular/material/input';
 

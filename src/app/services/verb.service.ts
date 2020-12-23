@@ -1,25 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-
-const baseUrl = 'http://localhost:8081';
+import {AppConfigService} from './app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VerbService {
 
-  constructor(private http: HttpClient) {
+  apiUrl;
+
+  constructor(private http: HttpClient, appConfig: AppConfigService) {
+    this.apiUrl = appConfig.apiUrl;
   }
 
   getRandom() {
     this.initForm();
-    // console.log('href|' + window.location.href);
-    // console.log('host|' + window.location.host);
-    // console.log('hostname|' + window.location.hostname);
-    // console.log('origin|' + window.location.origin);
-    // console.log('pathname|' + window.location.pathname);
-    // console.log('port|' + window.location.port);
-    // console.log('protocol|' + window.location.protocol);
     const params = new HttpParams()
       .set('masuForm', localStorage.getItem('masuForm'))
       .set('naiForm', localStorage.getItem('naiForm'))
@@ -29,7 +24,7 @@ export class VerbService {
       .set('passiveForm', localStorage.getItem('passiveForm'))
       .set('conditionalForm', localStorage.getItem('conditionalForm'));
 
-    return this.http.get(`${baseUrl}/api/verb/random`, {params: params});
+    return this.http.get(`${this.apiUrl}/api/verb/random`, {params: params});
   }
 
   initForm() {

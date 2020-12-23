@@ -1,12 +1,15 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule} from '@angular/core';
+import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {VerbListComponent} from './components/verb-list/verb-list.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {AuthenticationComponent} from './components/authentication/authentication.component';
+import {AppConfigService} from './services/app-config.service';
 
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
 
@@ -53,10 +56,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
-import {SettingsComponent} from './components/settings/settings.component';
 
 const routes: Routes = [
   {path: '', component: VerbListComponent},
+  {path: 'authentication', component: AuthenticationComponent},
   {path: 'settings', component: SettingsComponent}
 ];
 
@@ -64,7 +67,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     VerbListComponent,
-    SettingsComponent
+    SettingsComponent,
+    AuthenticationComponent
   ],
   imports: [
     [RouterModule.forRoot(routes)],
@@ -120,10 +124,24 @@ const routes: Routes = [
     ReactiveFormsModule,
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: localStorage.getItem('language')}
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: AppConfigServiceFactory,
+      deps: [AppConfigService, HttpClient], multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: localStorage.getItem('language')
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
+}
+
+export function AppConfigServiceFactory(
+  appConfig: AppConfigService) {
+  return () => appConfig.ensureInit();
 }
