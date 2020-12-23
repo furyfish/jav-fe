@@ -11,6 +11,10 @@
     </button>
 
     <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="'/authentication'">
+        <mat-icon>login</mat-icon>
+        <span>Đăng nhập</span>
+      </button>
       <button mat-menu-item [routerLink]="'/settings'">
         <mat-icon>settings</mat-icon>
         <span>Cài đặt</span>
