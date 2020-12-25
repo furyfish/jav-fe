@@ -8,7 +8,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 })
 export class SettingsComponent implements OnInit {
 
-  formGroup: FormGroup;
+  formSetting: FormGroup;
   language = localStorage.getItem('language');
   timer = new FormControl(localStorage.getItem('timer') === '1');
   masuForm = new FormControl(localStorage.getItem('masuForm') === '1');
@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
   conditionalForm = new FormControl(localStorage.getItem('conditionalForm') === '1');
 
   constructor(formBuilder: FormBuilder) {
-    this.formGroup = formBuilder.group({
+    this.formSetting = formBuilder.group({
       language: this.language,
       timer: this.timer,
       masuForm: this.masuForm,
@@ -38,15 +38,15 @@ export class SettingsComponent implements OnInit {
   }
 
   onFormSubmit() {
-    localStorage.setItem('language', this.formGroup.get('language').value);
-    localStorage.setItem('timer', this.getSlideValue(this.formGroup.get('timer').value));
-    localStorage.setItem('masuForm', this.getSlideValue(this.formGroup.get('masuForm').value));
-    localStorage.setItem('naiForm', this.getSlideValue(this.formGroup.get('naiForm').value));
-    localStorage.setItem('taForm', this.getSlideValue(this.formGroup.get('taForm').value));
-    localStorage.setItem('teForm', this.getSlideValue(this.formGroup.get('teForm').value));
-    localStorage.setItem('potentialForm', this.getSlideValue(this.formGroup.get('potentialForm').value));
-    localStorage.setItem('passiveForm', this.getSlideValue(this.formGroup.get('passiveForm').value));
-    localStorage.setItem('conditionalForm', this.getSlideValue(this.formGroup.get('conditionalForm').value));
+    localStorage.setItem('language', this.formSetting.get('language').value);
+    localStorage.setItem('timer', this.getSlideValue(this.formSetting.get('timer').value));
+    localStorage.setItem('masuForm', this.getSlideValue(this.formSetting.get('masuForm').value));
+    localStorage.setItem('naiForm', this.getSlideValue(this.formSetting.get('naiForm').value));
+    localStorage.setItem('taForm', this.getSlideValue(this.formSetting.get('taForm').value));
+    localStorage.setItem('teForm', this.getSlideValue(this.formSetting.get('teForm').value));
+    localStorage.setItem('potentialForm', this.getSlideValue(this.formSetting.get('potentialForm').value));
+    localStorage.setItem('passiveForm', this.getSlideValue(this.formSetting.get('passiveForm').value));
+    localStorage.setItem('conditionalForm', this.getSlideValue(this.formSetting.get('conditionalForm').value));
   }
 
   getSlideValue(value) {

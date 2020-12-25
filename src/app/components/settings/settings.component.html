@@ -3,7 +3,7 @@
   <mat-card-content>
     <h2 class="setting-h2" i18n>Cài đặt</h2>
 
-    <form class="setting-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+    <form class="setting-form" [formGroup]="formSetting" (ngSubmit)="onFormSubmit()">
       <section class="setting-section">
         <label class="setting-margin" i18n>Ngôn ngữ:</label>
         <mat-radio-group formControlName="language">

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-authentication',
@@ -8,16 +9,31 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class AuthenticationComponent implements OnInit {
 
+  formLogin: FormGroup;
   hide = true;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService) {
+    this.formLogin = new FormGroup({
+      username: new FormControl(),
+      password: new FormControl(),
+    });
   }
 
   ngOnInit(): void {
   }
 
-  onAuthenFormSubmit() {
-    console.log('login');
+  login(user, pass) {
+    this.authenticationService.login(user, pass).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  logout() {
+    console.log('logout');
   }
 
 }

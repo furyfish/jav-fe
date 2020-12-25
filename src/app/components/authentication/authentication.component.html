@@ -7,7 +7,7 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Tên đăng nhập</mat-label>
-          <input matInput >
+          <input matInput #inputUsername="matInput" name="username">
           <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         </mat-form-field>
       </p>
@@ -15,7 +15,7 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Mật khẩu</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
+          <input matInput #inputPassword="matInput" [type]="hide ? 'password' : 'text'">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                   [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -24,7 +24,7 @@
       </p>
 
       <p>
-        <button mat-raised-button type="submit" class="setting-margin" i18n>Đăng nhập</button>
+        <button mat-raised-button type="submit" class="setting-margin" (click)="login(inputUsername.value, inputPassword.value)" i18n>Đăng nhập</button>
       </p>
     </div>
 

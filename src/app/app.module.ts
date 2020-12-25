@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule} from '@angular/core';
+import {CanActivate} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {VerbListComponent} from './components/verb-list/verb-list.component';
@@ -56,10 +57,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   {path: '', component: VerbListComponent},
   {path: 'authentication', component: AuthenticationComponent},
+  {path: 'logout', component: LogoutComponent},
   {path: 'settings', component: SettingsComponent}
 ];
 
@@ -68,7 +71,8 @@ const routes: Routes = [
     AppComponent,
     VerbListComponent,
     SettingsComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    LogoutComponent
   ],
   imports: [
     [RouterModule.forRoot(routes)],
