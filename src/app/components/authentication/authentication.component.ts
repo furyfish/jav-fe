@@ -1,4 +1,5 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
 
@@ -15,7 +16,7 @@ export class AuthenticationComponent implements OnInit {
   auth2: any;
   @ViewChild('loginRef', {static: true}) loginElement: ElementRef;
 
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private zone: NgZone) {
     this.formLogin = new FormGroup({
       username: new FormControl(),
       password: new FormControl(),
@@ -49,8 +50,12 @@ export class AuthenticationComponent implements OnInit {
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
+
+        this.zone.run(() => {
+          this.router.navigate(['/']);
+        });
       }, (error) => {
-        alert(JSON.stringify(error, undefined, 2));
+        console.log(JSON.stringify(error, undefined, 2));
       });
   }
 

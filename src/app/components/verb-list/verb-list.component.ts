@@ -43,7 +43,7 @@ export class VerbListComponent implements OnInit {
         data => {
           this.verb = data;
           console.log(this.verb);
-          if (this.hasValue(this.verb.code) && this.verb.code === 1) {
+          if (!this.hasValue(this.verb.code)) {
             const furigana = [];
             let lastFuriganaIdx = 0;
             for (let i = 0; i < this.verb.furigana.length; i++) {
