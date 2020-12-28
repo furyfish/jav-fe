@@ -24,8 +24,21 @@
       </p>
 
       <p>
-        <button mat-raised-button type="submit" class="setting-margin" (click)="login(inputUsername.value, inputPassword.value)" i18n>Đăng nhập</button>
+        <button mat-raised-button type="submit" class="authen-margin"
+                (click)="login(inputUsername.value, inputPassword.value)" i18n>Đăng nhập
+        </button>
+        <button mat-raised-button type="button" class="authen-margin" [routerLink]="'/'" i18n>Quay lại</button>
       </p>
+
+      <div class="container mt-5">
+        <div class="row mt-5">
+          <div class="col-md-4 mt-2 m-auto ">
+            <button class="loginBtn loginBtn--google" #loginRef>
+              Login with Google
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
   </mat-card-content>

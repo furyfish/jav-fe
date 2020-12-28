@@ -10,7 +10,7 @@ import {MatInput} from '@angular/material/input';
 })
 export class VerbListComponent implements OnInit {
 
-  verb: any;
+  verb: any = {form: {}, tense: {}, type: {}, furigana: ''};
   currentStreak = '0';
   maxStreak = '0';
   kana = '';
@@ -19,6 +19,7 @@ export class VerbListComponent implements OnInit {
   useProgressbar = localStorage.getItem('timer') === '1';
   @ViewChild('inputResult') inputResult: MatInput;
   isReviewing = false;
+  none = 'N/A';
 
   constructor(private verbService: VerbService) {
   }
@@ -32,7 +33,7 @@ export class VerbListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.verb = {form: {}, tense: {}, type: {}};
+    this.verb = {form: {}, tense: {}, type: {}, furigana: ''};
     this.refreshList();
   }
 
@@ -41,26 +42,29 @@ export class VerbListComponent implements OnInit {
       .subscribe(
         data => {
           this.verb = data;
-          const furigana = [];
-          let lastFuriganaIdx = 0;
-          for (let i = 0; i < this.verb.furigana.length; i++) {
-            if (this.verb.furigana.charAt(i) === ']') {
-              furigana.push(this.verb.furigana.slice(lastFuriganaIdx, i + 1));
-              lastFuriganaIdx = i + 1;
-            }
-          }
-          let countKanji = 0;
-          let idxJisho = 0;
-          this.verb.jisho = this.verb.kanji;
-          for (let i = 0; i < this.verb.kanji.length; i++) {
-            if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
-              this.verb.jisho = this.insert(this.verb.jisho, idxJisho + 1, furigana[countKanji]);
-              countKanji += 1;
-              idxJisho += 3;
-            }
-            idxJisho++;
-          }
           console.log(this.verb);
+          if (this.hasValue(this.verb.code) && this.verb.code === 1) {
+            const furigana = [];
+            let lastFuriganaIdx = 0;
+            for (let i = 0; i < this.verb.furigana.length; i++) {
+              if (this.verb.furigana.charAt(i) === ']') {
+                furigana.push(this.verb.furigana.slice(lastFuriganaIdx, i + 1));
+                lastFuriganaIdx = i + 1;
+              }
+            }
+            let countKanji = 0;
+            let idxJisho = 0;
+            this.verb.jisho = this.verb.kanji;
+            for (let i = 0; i < this.verb.kanji.length; i++) {
+              if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
+                this.verb.jisho = this.insert(this.verb.jisho, idxJisho + 1, furigana[countKanji]);
+                countKanji += 1;
+                idxJisho += 3;
+              }
+              idxJisho++;
+            }
+            console.log(this.verb);
+          }
         },
         error => {
           console.log(error);
@@ -202,5 +206,9 @@ export class VerbListComponent implements OnInit {
     const progressbar = document.getElementById(id);
     progressbar.classList.remove('progressbar');
     progressbar.innerHTML = '';
+  }
+
+  hasValue(obj) {
+    return obj && obj !== 'null' && obj !== 'undefined';
   }
 }

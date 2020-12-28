@@ -32,7 +32,7 @@
 
     <mat-list>
       <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ verb.form.name_vn }}</span>
+      <span class="column">{{ hasValue(verb.form) ? verb.form.name_vn : none }}</span>
       <span *ngIf="checkTense()">
         <mat-icon mat-list-icon>adjust</mat-icon>
         <span class="column">{{ verb.tense.name_vn }}</span>

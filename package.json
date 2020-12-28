@@ -23,6 +23,8 @@
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
     "@paulbarre/wc-furigana": "^1.0.1",
+    "@types/gapi": "0.0.39",
+    "@types/gapi.auth2": "0.0.52",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "wanakana": "^4.0.2",
