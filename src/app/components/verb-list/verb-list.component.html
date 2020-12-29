@@ -10,20 +10,22 @@
       <mat-icon>more_vert</mat-icon>
     </button>
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="'/authentication'">
-        <mat-icon>login</mat-icon>
-        <span>Đăng nhập</span>
-      </button>
-      <button mat-menu-item [routerLink]="'/settings'">
-        <mat-icon>settings</mat-icon>
-        <span>Cài đặt</span>
-      </button>
-      <button mat-menu-item [routerLink]="'/logout'">
-        <mat-icon>login</mat-icon>
-        <span>Đăng xuất</span>
-      </button>
-    </mat-menu>
+    <div class="menu">
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="'/authentication'">
+          <mat-icon>person</mat-icon>
+          <span>Đăng nhập</span>
+        </button>
+        <button mat-menu-item [routerLink]="'/settings'">
+          <mat-icon>settings</mat-icon>
+          <span>Cài đặt</span>
+        </button>
+        <button mat-menu-item [routerLink]="'/logout'">
+          <mat-icon>login</mat-icon>
+          <span>Đăng xuất</span>
+        </button>
+      </mat-menu>
+    </div>
   </mat-card-header>
 
   <mat-card-content>
@@ -32,14 +34,14 @@
 
     <mat-list>
       <mat-icon mat-list-icon>adjust</mat-icon>
-      <span class="column">{{ hasValue(verb.form) ? verb.form.name_vn : none }}</span>
+      <span class="column">{{ (verb.form === undefined) ? 'N/A' : verb.form.name_vn }}</span>
       <span *ngIf="checkTense()">
         <mat-icon mat-list-icon>adjust</mat-icon>
-        <span class="column">{{ verb.tense.name_vn }}</span>
+        <span class="column">{{ (verb.tense === undefined) ? 'N/A' : verb.tense.name_vn }}</span>
       </span>
       <span *ngIf="checkType()">
         <mat-icon mat-list-icon>adjust</mat-icon>
-        <span class="column">{{ verb.type.name_vn }}</span>
+        <span class="column">{{ (verb.type === undefined) ? 'N/A' : verb.type.name_vn }}</span>
       </span>
     </mat-list>
   </mat-card-content>

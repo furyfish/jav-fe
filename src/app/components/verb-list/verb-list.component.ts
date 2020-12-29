@@ -1,7 +1,9 @@
 import {LOCALE_ID, Component, HostListener, OnInit, ViewChild, Inject} from '@angular/core';
 import {VerbService} from '../../services/verb.service';
+import {ObjectUtils} from '../../utils/ObjectUtils';
 import * as wanakana from 'wanakana';
 import {MatInput} from '@angular/material/input';
+import {Utils} from 'tslint';
 
 @Component({
   selector: 'app-verb-list',
@@ -10,7 +12,7 @@ import {MatInput} from '@angular/material/input';
 })
 export class VerbListComponent implements OnInit {
 
-  verb: any = {form: {}, tense: {}, type: {}, furigana: ''};
+  verb: any;
   currentStreak = '0';
   maxStreak = '0';
   kana = '';
@@ -20,6 +22,7 @@ export class VerbListComponent implements OnInit {
   @ViewChild('inputResult') inputResult: MatInput;
   isReviewing = false;
   none = 'N/A';
+  token: any;
 
   constructor(private verbService: VerbService) {
   }
@@ -34,6 +37,7 @@ export class VerbListComponent implements OnInit {
 
   ngOnInit() {
     this.verb = {form: {}, tense: {}, type: {}, furigana: ''};
+    this.token = this.getToken();
     this.refreshList();
   }
 
@@ -43,7 +47,7 @@ export class VerbListComponent implements OnInit {
         data => {
           this.verb = data;
           console.log(this.verb);
-          if (!this.hasValue(this.verb.code)) {
+          if (ObjectUtils.isNull(this.verb.code)) {
             const furigana = [];
             let lastFuriganaIdx = 0;
             for (let i = 0; i < this.verb.furigana.length; i++) {
@@ -208,7 +212,11 @@ export class VerbListComponent implements OnInit {
     progressbar.innerHTML = '';
   }
 
-  hasValue(obj) {
-    return obj && obj !== 'null' && obj !== 'undefined';
+  getToken() {
+    const token = localStorage.getItem('jav4u_token');
+    if (ObjectUtils.isNotNull(token)) {
+      return token;
+    }
+    return {id: '', name: '', email: '', image: '', token: ''};
   }
 }

@@ -45,11 +45,14 @@ export class AuthenticationComponent implements OnInit {
     this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
       (googleUser) => {
         const profile = googleUser.getBasicProfile();
-        console.log('Token || ' + googleUser.getAuthResponse().id_token);
-        console.log('ID: ' + profile.getId());
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
+        localStorage.setItem('ja4v_authen',
+          JSON.stringify({
+            id: profile.getId(),
+            name: profile.getName(),
+            image: profile.getImageUrl(),
+            email: profile.getEmail(),
+            token: googleUser.getAuthResponse().id_token
+          }));
 
         this.zone.run(() => {
           this.router.navigate(['/']);
