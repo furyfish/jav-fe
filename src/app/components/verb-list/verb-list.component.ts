@@ -1,9 +1,10 @@
-import {LOCALE_ID, Component, HostListener, OnInit, ViewChild, Inject} from '@angular/core';
+import {LOCALE_ID, Component, HostListener, OnInit, ViewChild, Inject, NgZone} from '@angular/core';
 import {VerbService} from '../../services/verb.service';
 import {ObjectUtils} from '../../utils/ObjectUtils';
 import * as wanakana from 'wanakana';
 import {MatInput} from '@angular/material/input';
 import {Utils} from 'tslint';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-verb-list',
@@ -22,9 +23,9 @@ export class VerbListComponent implements OnInit {
   @ViewChild('inputResult') inputResult: MatInput;
   isReviewing = false;
   none = 'N/A';
-  token: any;
+  authen: any;
 
-  constructor(private verbService: VerbService) {
+  constructor(private verbService: VerbService, private router: Router, private zone: NgZone) {
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -37,7 +38,6 @@ export class VerbListComponent implements OnInit {
 
   ngOnInit() {
     this.verb = {form: {}, tense: {}, type: {}, furigana: ''};
-    this.token = this.getToken();
     this.refreshList();
   }
 
@@ -45,30 +45,36 @@ export class VerbListComponent implements OnInit {
     this.verbService.getRandom()
       .subscribe(
         data => {
+          console.log(data);
           this.verb = data;
-          console.log(this.verb);
-          if (ObjectUtils.isNull(this.verb.code)) {
-            const furigana = [];
-            let lastFuriganaIdx = 0;
-            for (let i = 0; i < this.verb.furigana.length; i++) {
-              if (this.verb.furigana.charAt(i) === ']') {
-                furigana.push(this.verb.furigana.slice(lastFuriganaIdx, i + 1));
-                lastFuriganaIdx = i + 1;
-              }
-            }
-            let countKanji = 0;
-            let idxJisho = 0;
-            this.verb.jisho = this.verb.kanji;
-            for (let i = 0; i < this.verb.kanji.length; i++) {
-              if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
-                this.verb.jisho = this.insert(this.verb.jisho, idxJisho + 1, furigana[countKanji]);
-                countKanji += 1;
-                idxJisho += 3;
-              }
-              idxJisho++;
-            }
-            console.log(this.verb);
+          if (ObjectUtils.isNotNull(this.verb.code)) {
+            this.zone.run(() => {
+              this.router.navigate(['/authentication']);
+            });
           }
+          // set furigana
+          const furigana = [];
+          let lastFuriganaIdx = 0;
+          for (let i = 0; i < this.verb.furigana.length; i++) {
+            if (this.verb.furigana.charAt(i) === ']') {
+              furigana.push(this.verb.furigana.slice(lastFuriganaIdx, i + 1));
+              lastFuriganaIdx = i + 1;
+            }
+          }
+
+          // set jisho
+          let idxFurigana = 0;
+          let idxJisho = 0;
+          this.verb.jisho = this.verb.kanji;
+          for (let i = 0; i < this.verb.kanji.length; i++) {
+            if (wanakana.isKanji(this.verb.kanji.charAt(i))) {
+              this.verb.jisho = this.insert(this.verb.jisho, idxJisho + 1, furigana[idxFurigana]);
+              idxJisho += furigana[idxFurigana].length;
+              idxFurigana += 1;
+            }
+            idxJisho++;
+          }
+          console.log(this.verb);
         },
         error => {
           console.log(error);
@@ -76,6 +82,7 @@ export class VerbListComponent implements OnInit {
   }
 
   refreshList() {
+    this.checkAuthen();
     setTimeout(() => this.isReviewing = false, 500);
     this.hideCorrect();
     this.showInputResult();
@@ -185,24 +192,19 @@ export class VerbListComponent implements OnInit {
 
     let progressbarinner = document.getElementById('inner');
     if (progressbarinner == null) {
-      // We create the div that changes width to show progress
       progressbarinner = document.createElement('div');
       progressbarinner.id = 'inner';
       progressbarinner.classList.add('inner');
 
-      // Now we set the animation parameters
       progressbarinner.style.animationDuration = duration;
 
-      // Eventually couple a callback
       if (typeof (callback) === 'function') {
         progressbarinner.addEventListener('animationend', callback);
       }
 
-      // Append the progressbar to the main progressbardiv
       progressbar.appendChild(progressbarinner);
     }
 
-    // When everything is set up we start the animation
     progressbarinner.style.animationPlayState = 'running';
   }
 
@@ -212,11 +214,20 @@ export class VerbListComponent implements OnInit {
     progressbar.innerHTML = '';
   }
 
-  getToken() {
-    const token = localStorage.getItem('jav4u_token');
-    if (ObjectUtils.isNotNull(token)) {
-      return token;
+  getAuthentication() {
+    const authen = localStorage.getItem('jav4u_authen');
+    if (ObjectUtils.isNotNull(authen)) {
+      return JSON.parse(authen);
     }
     return {id: '', name: '', email: '', image: '', token: ''};
+  }
+
+  checkAuthen() {
+    this.authen = this.getAuthentication();
+    if (this.authen.token === null || this.authen.token === undefined || this.authen.token === '') {
+      this.zone.run(() => {
+        this.router.navigate(['/authentication']);
+      });
+    }
   }
 }

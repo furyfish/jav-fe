@@ -45,7 +45,7 @@ export class AuthenticationComponent implements OnInit {
     this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
       (googleUser) => {
         const profile = googleUser.getBasicProfile();
-        localStorage.setItem('ja4v_authen',
+        localStorage.setItem('jav4u_authen',
           JSON.stringify({
             id: profile.getId(),
             name: profile.getName(),
