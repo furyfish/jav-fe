@@ -8,11 +8,11 @@ import {AppConfigService} from './app-config.service';
 export class VerbService {
 
   apiUrl;
-  token: any;
+  authen: any;
 
   constructor(private http: HttpClient, appConfig: AppConfigService) {
     this.apiUrl = appConfig.apiUrl;
-    this.token = this.loadToken();
+    this.authen = this.loadAuthentication();
   }
 
   getRandom() {
@@ -25,12 +25,13 @@ export class VerbService {
       .set('potentialForm', localStorage.getItem('potentialForm'))
       .set('passiveForm', localStorage.getItem('passiveForm'))
       .set('conditionalForm', localStorage.getItem('conditionalForm'))
-      .set('token', this.token.token);
+      .set('token', this.authen.token);
 
     return this.http.get(`${this.apiUrl}/api/verb/random`, {params: params});
   }
 
   initForm() {
+    this.authen = this.loadAuthentication();
     if (localStorage.getItem('masuForm') == null) {
       localStorage.setItem('masuForm', '1');
       localStorage.setItem('naiForm', '1');
@@ -49,7 +50,7 @@ export class VerbService {
     return localStorage.getItem('maxStreak');
   }
 
-  loadToken() {
+  loadAuthentication() {
     return JSON.parse(localStorage.getItem('jav4u_authen'));
   }
 

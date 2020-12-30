@@ -1,7 +1,9 @@
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
+
+declare var gapi: any;
 
 @Component({
   selector: 'app-authentication',
@@ -64,8 +66,8 @@ export class AuthenticationComponent implements OnInit {
 
   googleSDK() {
     window['googleSDKLoaded'] = () => {
-      window['gapi'].load('auth2', () => {
-        this.auth2 = window['gapi'].auth2.init({
+      gapi.load('auth2', () => {
+        this.auth2 = gapi.auth2.init({
           client_id: '924086004375-57q8obkea57eo2k8a1j8mk3p138hj0jf.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
           scope: 'profile email'

@@ -3,7 +3,6 @@ import {VerbService} from '../../services/verb.service';
 import {ObjectUtils} from '../../utils/ObjectUtils';
 import * as wanakana from 'wanakana';
 import {MatInput} from '@angular/material/input';
-import {Utils} from 'tslint';
 import {Router} from '@angular/router';
 
 @Component({
@@ -47,11 +46,14 @@ export class VerbListComponent implements OnInit {
         data => {
           console.log(data);
           this.verb = data;
+
           if (ObjectUtils.isNotNull(this.verb.code)) {
+            localStorage.removeItem('jav4u_authen');
             this.zone.run(() => {
               this.router.navigate(['/authentication']);
             });
           }
+
           // set furigana
           const furigana = [];
           let lastFuriganaIdx = 0;
