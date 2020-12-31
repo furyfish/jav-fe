@@ -12,7 +12,8 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['authentication']);
+    localStorage.removeItem('jav4u_authen');
+    this.router.navigate(['/authentication']);
   }
 
 }
